@@ -1,0 +1,11 @@
+{
+  "name": "ee-cart",
+  "version": "1.0.0",
+  "description": "Equal Experts code assignment",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
