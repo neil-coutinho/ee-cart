@@ -57,16 +57,51 @@ suite('EE Shopping Cart', () => {
     assert.isNumber(ap.getTotal(), 'Function should return cart items total price');
   });
 
-  test('MAIN TEST: The user adds 5 Dove Soaps to the shopping cart', () => {
+  test('The user adds 5 Dove Soaps to the shopping cart', () => {
     ap.emptyCart();
-    ap.addToCart(1);
-    ap.addToCart(1);
-    ap.addToCart(1);
-    ap.addToCart(1);
-    ap.addToCart(1);
-    console.log('Cart Items:',ap.getCart());
-    console.log('Cart Total:',ap.getTotal())
+    console.log('ADD 5 DOVE SOAPS')
+    for(var i = 1; i<6; i++){
+      ap.addToCart(1);
+    }
+    var cart = ap.getCart();
+    console.log('Cart Size:'+ cart.length);
+    console.log('Cart Items:', cart);
+    console.log('Cart Total:',ap.getTotal());
+
+
     assert.strictEqual(ap.getTotal(), 199.95, 'The shopping cart should contain 5 Dove Soaps each with a unit price of 39.99 And the shopping cart’s total price should equal 199.95');
+  });
+
+
+  test('Another 3 Dove Soaps to the shopping cart', () => {
+
+    console.log('ADD +3 DOVE SOAPS')
+    for(var i = 1; i<4; i++){
+      ap.addToCart(1);
+    }
+    var cart = ap.getCart();
+    console.log('Cart Size:'+ cart.length);
+    console.log('Cart Items:', cart);
+    console.log('Cart Total:',ap.getTotal());
+
+
+    assert.strictEqual(cart.length, 8, 'With prior 5 items an additional of 3 items should make the cart size to 8');
+  });
+
+
+  test('The user adds 8 Dove Soaps to the shopping cart', () => {
+    ap.emptyCart();
+    console.log('ADD 8 DOVE SOAPS')
+    for(var i = 1; i<9; i++){
+      ap.addToCart(1);
+    }
+    var cart = ap.getCart();
+    console.log('Cart Size:'+ cart.length);
+    console.log('Cart Items:', cart);
+    console.log('Cart Total:',ap.getTotal());
+
+
+    assert.strictEqual(ap.getTotal(), 319.92, 'The shopping cart should contain 5 Dove Soaps each with a unit price of 39.99 And the shopping cart’s total price should equal 319.92');
   });
 
 
