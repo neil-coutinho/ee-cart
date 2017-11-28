@@ -57,52 +57,106 @@ suite('EE Shopping Cart', () => {
     assert.isNumber(ap.getTotal(), 'Function should return cart items total price');
   });
 
-  test('The user adds 5 Dove Soaps to the shopping cart', () => {
+  test('typeof getTax', () => {
+    assert.isNumber(ap.getTax(), 'Function should return tax amount for cart items');
+  });
+  test('The user adds 4 items to the shopping cart', () => {
     ap.emptyCart();
-    console.log('ADD 5 DOVE SOAPS')
-    for(var i = 1; i<6; i++){
-      ap.addToCart(1);
-    }
+    console.log('ADD 2 DOVE SOAPS')
+    ap.addToCart(1);
+    ap.addToCart(1);
+    var cart = ap.getCart();
+
+    console.log('ADD 2 AXE DEO')
+    ap.addToCart(2);
+    ap.addToCart(2);
     var cart = ap.getCart();
     console.log('Cart Size:'+ cart.length);
     console.log('Cart Items:', cart);
     console.log('Cart Total:',ap.getTotal());
 
 
-    assert.strictEqual(ap.getTotal(), 199.95, 'The shopping cart should contain 5 Dove Soaps each with a unit price of 39.99 And the shopping cart’s total price should equal 199.95');
+    assert.strictEqual(ap.getTotal(), 279.96, 'The shopping cart should contain 5 Dove Soaps + 3 Axe Deos And the shopping cart’s total price should equal 279.96');
   });
 
-
-  test('Another 3 Dove Soaps to the shopping cart', () => {
-
-    console.log('ADD +3 DOVE SOAPS')
-    for(var i = 1; i<4; i++){
-      ap.addToCart(1);
-    }
-    var cart = ap.getCart();
-    console.log('Cart Size:'+ cart.length);
-    console.log('Cart Items:', cart);
-    console.log('Cart Total:',ap.getTotal());
-
-
-    assert.strictEqual(cart.length, 8, 'With prior 5 items an additional of 3 items should make the cart size to 8');
-  });
-
-
-  test('The user adds 8 Dove Soaps to the shopping cart', () => {
+  test('Tax for 39.99 x2 + 99.99x2 @12.5%', () => {
     ap.emptyCart();
-    console.log('ADD 8 DOVE SOAPS')
-    for(var i = 1; i<9; i++){
-      ap.addToCart(1);
-    }
+    console.log('ADD 2 DOVE SOAPS')
+    ap.addToCart(1);
+    ap.addToCart(1);
+    var cart = ap.getCart();
+
+    console.log('ADD 2 AXE DEO')
+    ap.addToCart(2);
+    ap.addToCart(2);
     var cart = ap.getCart();
     console.log('Cart Size:'+ cart.length);
     console.log('Cart Items:', cart);
     console.log('Cart Total:',ap.getTotal());
+    let cartTax = ap.getTax();
+    console.log('Cart Tax Total:', cartTax);
 
 
-    assert.strictEqual(ap.getTotal(), 319.92, 'The shopping cart should contain 5 Dove Soaps each with a unit price of 39.99 And the shopping cart’s total price should equal 319.92');
+    assert.strictEqual(cartTax, 35.00, '39.99 x2 + 99.99x2 @12.5%');
   });
+
+
+  test('Get Total with tax parameter', () => {
+    ap.emptyCart();
+    console.log('ADD 2 DOVE SOAPS')
+    ap.addToCart(1);
+    ap.addToCart(1);
+    var cart = ap.getCart();
+
+    console.log('ADD 2 AXE DEO')
+    ap.addToCart(2);
+    ap.addToCart(2);
+    var cart = ap.getCart();
+    console.log('Cart Size:'+ cart.length);
+    console.log('Cart Items:', cart);
+    let total = ap.getTotal();
+    console.log('Cart Total:',total);
+    let cartTax = ap.getTax();
+    console.log('Cart Tax Total:', cartTax);
+
+    console.log('Cart Total inc Tax:',ap.getTotal(1));
+
+    assert.isNumber(ap.getTotal(1), 'Function should return the total price inclusive of tax');
+  });
+
+
+  test('Main: 2 Dove + 2 Axe + Tax', () => {
+    ap.emptyCart();
+    console.log('ADD 2 DOVE SOAPS')
+    ap.addToCart(1);
+    ap.addToCart(1);
+    var cart = ap.getCart();
+
+    console.log('ADD 2 AXE DEO')
+    ap.addToCart(2);
+    ap.addToCart(2);
+    var cart = ap.getCart();
+    console.log('Cart Size:'+ cart.length);
+    console.log('Cart Items:', cart);
+    let total = ap.getTotal();
+    console.log('Cart Total:',total);
+    let cartTax = ap.getTax();
+    console.log('Cart Tax Total:', cartTax);
+
+    console.log('Cart Total inc Tax:',ap.getTotal(1));
+
+    assert.strictEqual(ap.getTotal(1), 314.96 ,'Function should return the total price inclusive of tax');
+  });
+
+
+
+
+
+
+
+
+
+
 
 
 });

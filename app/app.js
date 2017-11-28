@@ -2,20 +2,43 @@
 var app = (function() {
     let cart = [];
     let price = 0;
+    const tax = 12.5;
     const items = [{
         id: 1,
         name: 'Dove Soap',
         price: 39.99
+    },{
+        id: 2,
+        name: 'Axe Deo',
+        price: 99.99
     }];
 
     //function to calculate total
-    function _calcTotal() {
+    function _calcTotal(withTax) {
         price = 0;
         cart.forEach(function(item) {
             price += item.price;
         });
 
-        return parseFloat(price.toFixed(2));
+        if(withTax){
+          let taxAmt = _calcTax();
+          return parseFloat(price.toFixed(2)) + taxAmt;
+        } else{
+          return parseFloat(price.toFixed(2));
+        }
+
+
+    }
+
+    //function to calculate cart tax
+    function _calcTax() {
+        let total = 0;
+        cart.forEach(function(item) {
+            total += (item.price * (tax/100));
+        });
+
+
+        return parseFloat(Math.round(total.toFixed(2)));
 
     }
 
@@ -55,8 +78,12 @@ var app = (function() {
             }
         },
         //get total price of all items in the cart
-        getTotal: function() {
-            return _calcTotal();
+        getTotal: function(withTax) {
+            return _calcTotal(withTax);
+        },
+        //get total price of all items in the cart inclusive of tax
+        getTax: function() {
+            return _calcTax();
         },
         //clear out items in the cart
         emptyCart: function() {
